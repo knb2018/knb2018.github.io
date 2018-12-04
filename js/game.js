@@ -539,6 +539,27 @@ App.Game.prototype = {
 	
 	NewShopWindow: function()
 	{
+		 function order() {
+				var params = {
+				  type: 'item',
+				  item: 'item_25new'
+				};
+				VK.callMethod('showOrderBox', params);
+			  }
+
+			  var callbacksResults = document.getElementById('callbacks');
+
+			  VK.addCallback('onOrderSuccess', function(order_id) {
+				callbacksResults.innerHTML += '<br />onOrderSuccess '+order_id;
+			  });
+			  VK.addCallback('onOrderFail', function() {
+				callbacksResults.innerHTML += '<br />onOrderFail';
+			  });
+			  VK.addCallback('onOrderCancel', function() {
+				callbacksResults.innerHTML += '<br />onOrderCancel';
+			  });
+	
+	
 			this.shBack = this.game.add.sprite(0,0,'assets','frameBack.png');
 		
 		
@@ -630,6 +651,7 @@ App.Game.prototype = {
 					
 					self.bg.scale.setTo(bgScale);
 					self.bgGroup.add(self.bg);
+					order();
 				}
 			
 			},this);
