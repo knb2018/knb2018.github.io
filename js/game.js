@@ -120,6 +120,13 @@ App.Game.prototype = {
   
 	startGame: function()
 	{	
+		 VK.init(function() { 
+		console.log("VK INIT");
+		  }, function() { 
+			 console.log("VK FAILED");
+		}, '5.92'); 
+	
+	
 		this.typeNum="";
 		this.bgGroup = this.game.add.group();
 		this.bg = this.game.add.sprite(this.game.width/2,this.game.height,'back');
