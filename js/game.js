@@ -540,6 +540,8 @@ App.Game.prototype = {
 	NewShopWindow: function()
 	{
 		 function order() {
+		 
+				console.log('start PAY');
 				var params = {
 				  type: 'item',
 				  item: 'item_25new'
