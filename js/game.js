@@ -539,15 +539,6 @@ App.Game.prototype = {
 	
 	NewShopWindow: function()
 	{
-		 function order() {
-		 
-				console.log('start PAY');
-				var params = {
-				  type: 'item',
-				  item: 'item_25new'
-				};
-				VK.callMethod('showOrderBox', params);
-			  }
 
 			  var callbacksResults = document.getElementById('callbacks');
 
@@ -653,7 +644,12 @@ App.Game.prototype = {
 					
 					self.bg.scale.setTo(bgScale);
 					self.bgGroup.add(self.bg);
-					order();
+					console.log('start PAY');
+						var params = {
+						  type: 'item',
+						  item: 'item_25new'
+						};
+						VK.callMethod('showOrderBox', params);
 				}
 			
 			},this);
