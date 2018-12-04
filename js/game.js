@@ -121,7 +121,7 @@ App.Game.prototype = {
 	startGame: function()
 	{	
 		 VK.init(function() { 
-		console.log("VK INIT");
+		console.log("VK INIT OK");
 		  }, function() { 
 			 console.log("VK FAILED");
 		}, '5.92'); 
@@ -615,6 +615,7 @@ App.Game.prototype = {
 			this.ShopChecks[i].inputEnabled = true;
 			this.ShopChecks[i].events.onInputUp.add(function(e)
 			{
+				console.log("SHOP "+e.i);
 				self.shopSet = e.i;
 				for (let k=0;k<3;k++) self.ShopChecks[k].frameName = 'check0.png';
 				self.ShopChecks[e.i].frameName = 'check1.png';
@@ -644,6 +645,7 @@ App.Game.prototype = {
 					
 					self.bg.scale.setTo(bgScale);
 					self.bgGroup.add(self.bg);
+					
 					console.log('start PAY');
 						var params = {
 						  type: 'item',
