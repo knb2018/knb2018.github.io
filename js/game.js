@@ -119,7 +119,8 @@ App.Game.prototype = {
 	
   
 	startGame: function()
-	{	
+	{
+		
 		 VK.init(function() { 
 		console.log("VK INIT OK");
 		  }, function() { 
@@ -440,26 +441,50 @@ App.Game.prototype = {
 		this.hwGroup.add(this.hwBtn);
 		
 		var style2 = { font: "25px Arial", fill: "#ffffff", align: "center" };
-		this.hwBtext = this.game.add.text(120,20,"Вперед",style2);
+		this.hwBtext = this.game.add.text(120,20,"Выйти",style2);
 		this.hwBtext.x-=this.hwBtext.width/2;
 		this.hwBtn.addChild(this.hwBtext);
+		
+		this.hwR =  this.game.add.sprite(612,435,'assets','arrow.png');
+		this.hwR.anchor.setTo(0.5,0.5);
+		this.hwR.scale.setTo(0.3,0.3);
+		this.hwGroup.add(this.hwR);
+		
+		this.hwL =  this.game.add.sprite(162,435,'assets','arrow.png');
+		this.hwL.anchor.setTo(0.5,0.5);
+		this.hwL.scale.setTo(-0.3,0.3);
+		this.hwGroup.add(this.hwL);
+		
 		
 		var self = this;
 		
 		this.hwBtn.inputEnabled = true;
-			this.hwBtn.events.onInputUp.add(function()
+		this.hwL.inputEnabled = true;
+		this.hwR.inputEnabled = true;
+		
+		
+			this.hwL.events.onInputUp.add(function()
 			{
-				if (self.hTNum==3)
+				if (self.hTNum>0)
 				{
-					self.hwBtn.inputEnabled = false;
-					self.guiGroup.remove(self.hwGroup);
+					self.hTNum--;
+					self.hwText.text = self.hTexts[self.hTNum];
 				}
-				else
+			},this);
+			
+			this.hwR.events.onInputUp.add(function()
+			{
+				if (self.hTNum<2)
 				{
 					self.hTNum++;
 					self.hwText.text = self.hTexts[self.hTNum];
 				}
-			
+			},this);
+		
+			this.hwBtn.events.onInputUp.add(function()
+			{
+				self.hwBtn.inputEnabled = false;
+				self.guiGroup.remove(self.hwGroup);
 			},this);
 	},
 	
@@ -539,16 +564,31 @@ App.Game.prototype = {
 	
 	NewShopWindow: function()
 	{
+		var self = this;
 
 			  var callbacksResults = document.getElementById('callbacks');
 
 			  VK.addCallback('onOrderSuccess', function(order_id) {
+				console.log("OK "+order_id);
 				callbacksResults.innerHTML += '<br />onOrderSuccess '+order_id;
+				localStorage.setItem("buy","ok");
+				
+					self.bg.destroy();
+					self.bg = this.game.add.sprite(this.game.width/2,this.game.height,'back2');
+					self.bg.anchor.setTo(0.5,1);
+					var bgScale = self.game.width/self.bg.width;
+					if (self.game.height/(0.9*self.bg.height)>bgScale) bgScale = self.game.height/(0.9*self.bg.height);
+					
+					self.bg.scale.setTo(bgScale);
+					self.bgGroup.add(self.bg);
+				
 			  });
 			  VK.addCallback('onOrderFail', function() {
+				console.log("order_fail");
 				callbacksResults.innerHTML += '<br />onOrderFail';
 			  });
 			  VK.addCallback('onOrderCancel', function() {
+				console.log("order_cancel");
 				callbacksResults.innerHTML += '<br />onOrderCancel';
 			  });
 	
@@ -577,7 +617,6 @@ App.Game.prototype = {
 		this.S1Texts = [];
 		let sTexts = ['Средневековье','Гангстеры','Стимпанк'];
 		
-		var self = this;
 		
 		for (i=0;i<3;i++)
 		{
@@ -637,6 +676,8 @@ App.Game.prototype = {
 				
 				if (e.i==2 )
 				{
+					if (localStorage.getItem("buy")=="ok")
+					{
 					self.bg.destroy();
 					self.bg = this.game.add.sprite(this.game.width/2,this.game.height,'back2');
 					self.bg.anchor.setTo(0.5,1);
@@ -645,6 +686,9 @@ App.Game.prototype = {
 					
 					self.bg.scale.setTo(bgScale);
 					self.bgGroup.add(self.bg);
+					}
+					else
+					{
 					
 					console.log('start PAY');
 						var params = {
@@ -652,6 +696,7 @@ App.Game.prototype = {
 						  item: 'item_25new'
 						};
 						VK.callMethod('showOrderBox', params);
+					}
 				}
 			
 			},this);
