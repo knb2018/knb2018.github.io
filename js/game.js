@@ -392,8 +392,8 @@ App.Game.prototype = {
 		
 		this.pmHB = this.game.add.sprite(62,290,'assets','frameBtn.png');
 		this.pmGroup.add(this.pmHB);
-		this.pmHBtext = this.game.add.text(120,20,"Подсказки",style);
-		this.pmHBtext.x-=this.pmHBtext.width/2;
+		//this.pmHBtext = this.game.add.text(120,20,"Подсказки",style);
+		//this.pmHBtext.x-=this.pmHBtext.width/2;
 		//this.pmHB.inputEnabled = true;
 			//this.pmHB.events.onInputUp.add(this.NewHintWindow,this);
 		this.pmHB.visible = false;
@@ -796,8 +796,9 @@ App.Game.prototype = {
 		
 		this.mmHB = this.game.add.sprite(62,310,'assets','frameBtn.png');
 		this.mmGroup.add(this.mmHB);
-		this.mmHBtext = this.game.add.text(120,20,"Подсказки",style);
-		this.mmHBtext.x-=this.mmHBtext.width/2;
+		
+		//this.mmHBtext = this.game.add.text(120,20,"Подсказки",style);
+		//this.mmHBtext.x-=this.mmHBtext.width/2;
 		
 			//this.mmHB.inputEnabled = true;
 			//this.mmHB.events.onInputUp.add(this.NewHintWindow,this);
