@@ -617,7 +617,7 @@ App.Game.prototype = {
 		
 		this.S1Title = this.game.add.text(80,50,"Выберите стиль: ",style);
 		
-		this.shBtn = this.game.add.sprite(280,380,'assets','frameBtn.png');
+		this.shBtn = this.game.add.sprite(280,400,'assets','frameBtn.png');
 		this.shBack.addChild(this.S1Title);
 		this.shBack.addChild(this.shBtn);
 		this.shBtext = this.game.add.text(120,20,"Назад",style);
@@ -729,7 +729,7 @@ App.Game.prototype = {
 				
 		}		
 		
-		this.updtext = this.game.add.text(80,340,"(Будет доступен в следующей версии)",style);
+		this.updtext = this.game.add.text(80,350,"(Будет доступен в следующей версии)",style);
 		this.shBack.addChild(this.updtext);
 		
 		
