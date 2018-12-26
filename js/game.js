@@ -120,13 +120,13 @@ App.Game.prototype = {
   
 	startGame: function()
 	{
-		
+		/*
 		 VK.init(function() { 
 		console.log("VK INIT OK");
 		  }, function() { 
 			 console.log("VK FAILED");
 		}, '5.92'); 
-	
+	*/
 	
 		this.typeNum="";
 		this.bgGroup = this.game.add.group();
@@ -362,7 +362,7 @@ App.Game.prototype = {
 		
 		var style = { font: "25px Arial", fill: "#ffffff", align: "center" };
 		
-		this.pmCB = this.game.add.sprite(62,50,'assets','frameBtn.png');
+		this.pmCB = this.game.add.sprite(62,60,'assets','frameBtn.png');
 		this.pmGroup.add(this.pmCB);
 		//this.pmCBtext = this.SetBitmapText(120,20,"Продолжить",25);
 		this.pmCBtext = this.game.add.text(120,20,"Продолжить",style);
@@ -371,7 +371,7 @@ App.Game.prototype = {
 		this.pmCB.inputEnabled = true;
 		this.pmCB.events.onInputUp.add(this.ClickResume,this);
 		
-		this.pmNB = this.game.add.sprite(62,130,'assets','frameBtn.png');
+		this.pmNB = this.game.add.sprite(62,160,'assets','frameBtn.png');
 		this.pmGroup.add(this.pmNB);
 		this.pmNBtext = this.game.add.text(120,20,"Новая игра",style);
 		this.pmNBtext.x-=this.pmNBtext.width/2;
@@ -380,7 +380,7 @@ App.Game.prototype = {
 		this.pmNB.inputEnabled = true;
 		this.pmNB.events.onInputUp.add(this.ClickNewGame,this);
 		
-		this.pmRB = this.game.add.sprite(62,210,'assets','frameBtn.png');
+		this.pmRB = this.game.add.sprite(62,260,'assets','frameBtn.png');
 		this.pmGroup.add(this.pmRB);
 		this.pmRBtext = this.game.add.text(120,20,"Правила",style);
 		this.pmRBtext.x-=this.pmRBtext.width/2;
@@ -394,13 +394,14 @@ App.Game.prototype = {
 		this.pmGroup.add(this.pmHB);
 		this.pmHBtext = this.game.add.text(120,20,"Подсказки",style);
 		this.pmHBtext.x-=this.pmHBtext.width/2;
-		this.pmHB.inputEnabled = true;
-			this.pmHB.events.onInputUp.add(this.NewHintWindow,this);
+		//this.pmHB.inputEnabled = true;
+			//this.pmHB.events.onInputUp.add(this.NewHintWindow,this);
+		this.pmHB.visible = false;
+		
+		//this.pmHB.addChild(this.pmHBtext);
 		
 		
-		this.pmHB.addChild(this.pmHBtext);
-		
-		this.pmEB = this.game.add.sprite(62,370,'assets','frameBtn.png');
+		this.pmEB = this.game.add.sprite(62,360,'assets','frameBtn.png');
 		this.pmGroup.add(this.pmEB);
 		this.pmEBtext = this.game.add.text(120,20,"Закончить игру",style);
 		this.pmEBtext.x-=this.pmEBtext.width/2;
@@ -554,8 +555,10 @@ App.Game.prototype = {
 		this.hwBtn2.inputEnabled = true;
 			this.hwBtn2.events.onInputUp.add(function()
 			{
+				self.hwGroup2.destroy();
 				self.hwBtn2.inputEnabled = false;
 				self.guiGroup.remove(self.hwGroup2);
+				self.hwBtn2.destroy();
 			
 			},this);
 	
@@ -565,14 +568,23 @@ App.Game.prototype = {
 	NewShopWindow: function()
 	{
 		var self = this;
+		
+		if (this.mmGroup != null) 
+		{
+			this.mmGroup.destroy();
+			this.mmGroup = null;
+		}
 
-			  var callbacksResults = document.getElementById('callbacks');
+			  //var callbacksResults = document.getElementById('callbacks');
 
+				/*
 			  VK.addCallback('onOrderSuccess', function(order_id) {
 				console.log("OK "+order_id);
 				callbacksResults.innerHTML += '<br />onOrderSuccess '+order_id;
 				localStorage.setItem("buy","ok");
 				
+						for (let k=0;k<3;k++) self.ShopChecks[k].frameName = 'check0.png';
+					self.ShopChecks[2].frameName = 'check1.png';
 					self.bg.destroy();
 					self.bg = this.game.add.sprite(this.game.width/2,this.game.height,'back2');
 					self.bg.anchor.setTo(0.5,1);
@@ -591,7 +603,7 @@ App.Game.prototype = {
 				console.log("order_cancel");
 				callbacksResults.innerHTML += '<br />onOrderCancel';
 			  });
-	
+			*/
 	
 			this.shBack = this.game.add.sprite(0,0,'assets','frameBack.png');
 		
@@ -644,23 +656,33 @@ App.Game.prototype = {
 				if (this.shopSet==i)
 			this.ShopChecks[i] = 	this.game.add.sprite(280,100+i*95,'assets','check1.png');
 			else
+			if (i<2)	
 			this.ShopChecks[i] = 	this.game.add.sprite(280,100+i*95,'assets','check0.png');
-			this.shBack.addChild(this.ShopChecks[i]);		
+			else 
+			this.ShopChecks[i] = 	this.game.add.sprite(280,100+i*95,'assets','check_grey.png');
+			
+			this.shBack.addChild(this.ShopChecks[i]);	
+
+		
 			
 			this.ShopChecks[i].i = i;
 			
 			
-			
+			if (i<2)
 			this.ShopChecks[i].inputEnabled = true;
 			this.ShopChecks[i].events.onInputUp.add(function(e)
 			{
 				console.log("SHOP "+e.i);
 				self.shopSet = e.i;
-				for (let k=0;k<3;k++) self.ShopChecks[k].frameName = 'check0.png';
-				self.ShopChecks[e.i].frameName = 'check1.png';
-				
+			
 				if (e.i==0 || e.i ==1)
 				{
+				
+					for (let k=0;k<2;k++) self.ShopChecks[k].frameName = 'check0.png';
+					
+					
+					self.ShopChecks[e.i].frameName = 'check1.png';
+				
 					self.bg.destroy();
 					if (e.i==0)
 					self.bg = this.game.add.sprite(this.game.width/2,this.game.height,'back');
@@ -674,10 +696,13 @@ App.Game.prototype = {
 					self.bgGroup.add(self.bg);
 				}
 				
+				/*
 				if (e.i==2 )
 				{
 					if (localStorage.getItem("buy")=="ok")
 					{
+					for (let k=0;k<3;k++) self.ShopChecks[k].frameName = 'check0.png';
+					self.ShopChecks[2].frameName = 'check1.png';
 					self.bg.destroy();
 					self.bg = this.game.add.sprite(this.game.width/2,this.game.height,'back2');
 					self.bg.anchor.setTo(0.5,1);
@@ -698,10 +723,15 @@ App.Game.prototype = {
 						VK.callMethod('showOrderBox', params);
 					}
 				}
+				*/
 			
 			},this);
 				
 		}		
+		
+		this.updtext = this.game.add.text(80,340,"(Будет доступен в следующей версии)",style);
+		this.shBack.addChild(this.updtext);
+		
 		
 		
 		var self = this;
@@ -714,6 +744,7 @@ App.Game.prototype = {
 				for (let k=0;k<3;k++)
 				self.ShopChecks[k].inputEnabled = false;
 				self.shBack.destroy();
+				self.NewMainMenu();
 			
 			},this);
 		
@@ -744,7 +775,7 @@ App.Game.prototype = {
 		
 		
 		
-		this.mmNB = this.game.add.sprite(62,50,'assets','frameBtn.png');
+		this.mmNB = this.game.add.sprite(62,70,'assets','frameBtn.png');
 		this.mmGroup.add(this.mmNB);
 		this.mmNBtext = this.game.add.text(120,20,"Новая игра",style);
 		this.mmNBtext.x-=this.mmNBtext.width/2;
@@ -754,7 +785,7 @@ App.Game.prototype = {
 		this.mmNB.inputEnabled = true;
 			this.mmNB.events.onInputUp.add(this.ClickNewGame,this);
 		
-		this.mmRB = this.game.add.sprite(62,130,'assets','frameBtn.png');
+		this.mmRB = this.game.add.sprite(62,170,'assets','frameBtn.png');
 		this.mmGroup.add(this.mmRB);
 		this.mmRBtext = this.game.add.text(120,20,"Правила",style);
 		this.mmRBtext.x-=this.mmRBtext.width/2;
@@ -763,17 +794,18 @@ App.Game.prototype = {
 		
 		this.mmRB.addChild(this.mmRBtext);
 		
-		this.mmHB = this.game.add.sprite(62,290,'assets','frameBtn.png');
+		this.mmHB = this.game.add.sprite(62,310,'assets','frameBtn.png');
 		this.mmGroup.add(this.mmHB);
 		this.mmHBtext = this.game.add.text(120,20,"Подсказки",style);
 		this.mmHBtext.x-=this.mmHBtext.width/2;
 		
-			this.mmHB.inputEnabled = true;
-			this.mmHB.events.onInputUp.add(this.NewHintWindow,this);
+			//this.mmHB.inputEnabled = true;
+			//this.mmHB.events.onInputUp.add(this.NewHintWindow,this);
 		
-		this.mmHB.addChild(this.mmHBtext);
+		//this.mmHB.addChild(this.mmHBtext);
+		this.mmHB.visible = false;
 		
-		this.mmEB = this.game.add.sprite(62,210,'assets','frameBtn.png');
+		this.mmEB = this.game.add.sprite(62,270,'assets','frameBtn.png');
 		this.mmGroup.add(this.mmEB);
 		this.mmEBtext = this.game.add.text(120,20,"Авторы",style);
 		this.mmEBtext.x-=this.mmEBtext.width/2;
