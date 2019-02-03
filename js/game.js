@@ -780,7 +780,6 @@ App.Game.prototype = {
 			this.mmHB.events.onInputUp.add(this.NewHintWindow,this);
 		
 		this.mmHB.addChild(this.mmHBtext);
-		this.mmHB.visible = false;
 		
 		this.mmEB = this.game.add.sprite(62,210,'assets','frameBtn.png');
 		this.mmGroup.add(this.mmEB);
@@ -792,7 +791,7 @@ App.Game.prototype = {
 		
 		this.mmEB.addChild(this.mmEBtext);
 		
-		this.mmSB = this.game.add.sprite(62,340,'assets','frameBtn.png');
+		this.mmSB = this.game.add.sprite(62,370,'assets','frameBtn.png');
 		this.mmGroup.add(this.mmSB);
 		this.mmSBtext = this.game.add.text(120,20,"Магазин",style);
 		this.mmSBtext.x-=this.mmSBtext.width/2;
