@@ -252,7 +252,7 @@ App.Game.prototype = {
 	
 	NewHintWindow: function()
 	{
-	
+		VK.callMethod("showInviteBox");
 	
 	},
 	
@@ -702,8 +702,8 @@ App.Game.prototype = {
 						  type: 'item',
 						  item: 'item_25new'
 						};
-						//VK.callMethod('showOrderBox', params);
-						VK.callMethod("showInviteBox");
+						VK.callMethod('showOrderBox', params);
+						
 					}
 				}
 			
@@ -752,7 +752,7 @@ App.Game.prototype = {
 		
 		
 		
-		this.mmNB = this.game.add.sprite(62,70,'assets','frameBtn.png');
+		this.mmNB = this.game.add.sprite(62,50,'assets','frameBtn.png');
 		this.mmGroup.add(this.mmNB);
 		this.mmNBtext = this.game.add.text(120,20,"Новая игра",style);
 		this.mmNBtext.x-=this.mmNBtext.width/2;
@@ -762,7 +762,7 @@ App.Game.prototype = {
 		this.mmNB.inputEnabled = true;
 			this.mmNB.events.onInputUp.add(this.ClickNewGame,this);
 		
-		this.mmRB = this.game.add.sprite(62,150,'assets','frameBtn.png');
+		this.mmRB = this.game.add.sprite(62,130,'assets','frameBtn.png');
 		this.mmGroup.add(this.mmRB);
 		this.mmRBtext = this.game.add.text(120,20,"Правила",style);
 		this.mmRBtext.x-=this.mmRBtext.width/2;
@@ -773,16 +773,16 @@ App.Game.prototype = {
 		
 		this.mmHB = this.game.add.sprite(62,290,'assets','frameBtn.png');
 		this.mmGroup.add(this.mmHB);
-		this.mmHBtext = this.game.add.text(120,20,"Подсказки",style);
+		this.mmHBtext = this.game.add.text(120,20,"Пригласить друга",style);
 		this.mmHBtext.x-=this.mmHBtext.width/2;
 		
-			//this.mmHB.inputEnabled = true;
-			//this.mmHB.events.onInputUp.add(this.NewHintWindow,this);
+			this.mmHB.inputEnabled = true;
+			this.mmHB.events.onInputUp.add(this.NewHintWindow,this);
 		
-		//this.mmHB.addChild(this.mmHBtext);
+		this.mmHB.addChild(this.mmHBtext);
 		this.mmHB.visible = false;
 		
-		this.mmEB = this.game.add.sprite(62,240,'assets','frameBtn.png');
+		this.mmEB = this.game.add.sprite(62,210,'assets','frameBtn.png');
 		this.mmGroup.add(this.mmEB);
 		this.mmEBtext = this.game.add.text(120,20,"Авторы",style);
 		this.mmEBtext.x-=this.mmEBtext.width/2;
