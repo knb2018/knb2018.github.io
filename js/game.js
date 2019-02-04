@@ -250,11 +250,7 @@ App.Game.prototype = {
 		this.btnBack.visible = true;
 	},
 	
-	NewHintWindow: function()
-	{
-		VK.callMethod("showInviteBox");
 	
-	},
 	
 	NewRulesWindow: function()
 	{
@@ -490,6 +486,7 @@ App.Game.prototype = {
 	
 	NewHintWindow: function()
 	{
+		/*
 		var style = { font: "25px Arial", fill: "#ffffff", align: "center" };
 		
 		this.hwGroup1 = this.game.add.group();
@@ -519,7 +516,8 @@ App.Game.prototype = {
 				self.guiGroup.remove(self.hwGroup1);
 			
 			},this);
-	
+		*/
+		VK.callMethod("showInviteBox");
 	},
 	
 	NewAutorsWindow: function()
